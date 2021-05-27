@@ -34,26 +34,34 @@ public class BD_PruebaCompleta {
 //		System.out.println("Eres el pasajero " + pasaj.getUsuario().getNombre());
 
 		// ---------------------------------------------------------------------------------------------
-		JOptionPane.showMessageDialog(null, "Bienvenido al sistema, ¿Qué desea realizar?");
+		// JOptionPane.showMessageDialog(null, "Bienvenido al sistema, ¿Qué desea
+		// realizar?");
 		String[] botones = { "Mostrar", "Modificar", "Crear", "Borrar" };
-		int ventana = JOptionPane.showOptionDialog(null, "Pulsa un boton:", " ", JOptionPane.DEFAULT_OPTION,
-				JOptionPane.QUESTION_MESSAGE, null, botones, botones[0]);
+		int ventana = JOptionPane.showOptionDialog(null, "Bienvenido al sistema, ¿Qué desea realizar?", " ",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, botones, botones[0]);
 		switch (ventana) {
 		case 0: {
-			JOptionPane.showMessageDialog(null, ", ¿Qué desea mostrar?");
+			JOptionPane.showMessageDialog(null, "¿Qué desea mostrar?");
 			String[] botonesEntidades = { "Usuarios", "Pasajeros", "Conductores", "Viajes" };
 			int ventanaMostrar = JOptionPane.showOptionDialog(null, "Pulsa un boton:", " ", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.QUESTION_MESSAGE, null, botonesEntidades, botonesEntidades[0]);
 			switch (ventanaMostrar) {
 			case 0:
-				JOptionPane.showMessageDialog(null, ", Actualmente tenemos registrados los siguientes usuarios: \n"+cu.findAll());
-				imprimirUsuarios(listaUsuarios);
+				JOptionPane.showMessageDialog(null,
+						"Actualmente tenemos registrados los siguientes usuarios: \n" + cu.findAll());
+
 				break;
 			case 1:
+				JOptionPane.showMessageDialog(null,
+						"Actualmente tenemos registrados los siguientes pasajeros: \n" + cp.findAll());
 				break;
 			case 2:
+				JOptionPane.showMessageDialog(null,
+						"Actualmente tenemos registrados los siguientes conductores: \n" + cc.findAll());
 				break;
 			case 3:
+				JOptionPane.showMessageDialog(null,
+						"Actualmente tenemos registrados los siguientes viajes: \n" + cv.findAll());
 				break;
 
 			}
@@ -88,7 +96,6 @@ public class BD_PruebaCompleta {
 	private static void imprimirUsuarios(List<Usuario> listaUsuarios) {
 		for (Usuario user : listaUsuarios) {
 			System.out.println(user.toString());
-			
 
 		}
 	}
