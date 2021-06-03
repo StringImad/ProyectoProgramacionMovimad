@@ -12,6 +12,7 @@ import controladores.BD_ControladorViajeCRUD;
 import entidades.Conductor;
 import entidades.Pasajero;
 import entidades.Usuario;
+import servicios.ServicioUsuario;
 
 public class BD_PruebaCompleta {
 
@@ -24,63 +25,172 @@ public class BD_PruebaCompleta {
 		BD_ControladorConductorCRUD cc = new BD_ControladorConductorCRUD();
 		List<Conductor> listaVehiculos = cc.findAll();
 		List<Usuario> listaUsuarios = cu.findAll();
-//		System.out.println("-------------BIENVENIDO A MOVIMAD----------");
-//		System.out.println("\n\tActualmente estos son los conductores que tenemos disponibles:\n");
-//		imprimirConductoresDisponibles(listaVehiculos);
-//		int codCliente = 0;
-//		System.out.println("\nIntroduce tu codigo de pasajero: ");
-//		codCliente = teclado.nextInt();
-//		Pasajero pasaj = cp.findByPK(codCliente);
-//		System.out.println("Eres el pasajero " + pasaj.getUsuario().getNombre());
+		boolean repetir = true;
+		String codigo = "";
+		String[] botones = { "Mostrar", "Modificar", "Crear", "Borrar", "salir" };
+		String[] botonesEntidades = { "Usuarios", "Pasajeros", "Conductores", "Viajes", "salir" };
+		do {
+			int ventana = JOptionPane.showOptionDialog(null, "Bienvenido al sistema, ¿Qué desea realizar?", " ",
+					JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, botones, botones[0]);
+			switch (ventana) {
+			case 0: {
 
-		// ---------------------------------------------------------------------------------------------
-		// JOptionPane.showMessageDialog(null, "Bienvenido al sistema, ¿Qué desea
-		// realizar?");
-		String[] botones = { "Mostrar", "Modificar", "Crear", "Borrar" };
-		int ventana = JOptionPane.showOptionDialog(null, "Bienvenido al sistema, ¿Qué desea realizar?", " ",
-				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, botones, botones[0]);
-		switch (ventana) {
-		case 0: {
-			JOptionPane.showMessageDialog(null, "¿Qué desea mostrar?");
-			String[] botonesEntidades = { "Usuarios", "Pasajeros", "Conductores", "Viajes" };
-			int ventanaMostrar = JOptionPane.showOptionDialog(null, "Pulsa un boton:", " ", JOptionPane.DEFAULT_OPTION,
-					JOptionPane.QUESTION_MESSAGE, null, botonesEntidades, botonesEntidades[0]);
-			switch (ventanaMostrar) {
-			case 0:
-				JOptionPane.showMessageDialog(null,
-						"Actualmente tenemos registrados los siguientes usuarios: \n" + cu.findAll());
+				int ventanaMostrar = JOptionPane.showOptionDialog(null, "¿Qué desea mostrar?", " ",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, botonesEntidades,
+						botonesEntidades[0]);
+				switch (ventanaMostrar) {
+				case 0:
+					JOptionPane.showMessageDialog(null,
+							"Actualmente tenemos registrados los siguientes usuarios: \n" + cu.findAll());
 
-				break;
-			case 1:
-				JOptionPane.showMessageDialog(null,
-						"Actualmente tenemos registrados los siguientes pasajeros: \n" + cp.findAll());
-				break;
-			case 2:
-				JOptionPane.showMessageDialog(null,
-						"Actualmente tenemos registrados los siguientes conductores: \n" + cc.findAll());
-				break;
-			case 3:
-				JOptionPane.showMessageDialog(null,
-						"Actualmente tenemos registrados los siguientes viajes: \n" + cv.findAll());
-				break;
+					break;
+				case 1:
+					JOptionPane.showMessageDialog(null,
+							"Actualmente tenemos registrados los siguientes pasajeros: \n" + cp.findAll());
+					break;
+				case 2:
+					JOptionPane.showMessageDialog(null,
+							"Actualmente tenemos registrados los siguientes conductores: \n" + cc.findAll());
+					break;
+				case 3:
+					JOptionPane.showMessageDialog(null,
+							"Actualmente tenemos registrados los siguientes viajes: \n" + cv.findAll());
+					break;
+				case 4:
 
+					JOptionPane.showMessageDialog(null, "Pulse aceptar para salir a la pantalla de inicio.");
+					// al pulsar en case 4 se pone reptir en false por lo tanto sale del programa y
+					// del bucle
+					repetir = false;
+
+					break;
+
+				}
+				break;
+			}				
+
+			case 1: {
+				int ventanaModificar = JOptionPane.showOptionDialog(null, "¿Qué desea modificar?", " ",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, botonesEntidades,
+						botonesEntidades[0]);
+				switch (ventanaModificar) {
+				case 0:
+
+					do {
+						codigo = JOptionPane.showInputDialog(
+								"Actualmente tenemos registrados los siguientes usuarios: \n" + cu.findAll()+
+								"Escriba el codigo");
+
+					} while (ServicioUsuario.comprobarExistenciaUsuario(Integer.parseInt(codigo)));
+					ServicioUsuario.modificarUsuario(codigo);
+					// ServicioUsuario.ModificarUsuario(Integer.parseInt(codigo));
+
+					break;
+				case 1:
+					JOptionPane.showMessageDialog(null,
+							"Actualmente tenemos registrados los siguientes pasajeros: \n" + cp.findAll());
+					break;
+				case 2:
+					JOptionPane.showMessageDialog(null,
+							"Actualmente tenemos registrados los siguientes conductores: \n" + cc.findAll());
+					break;
+				case 3:
+					JOptionPane.showMessageDialog(null,
+							"Actualmente tenemos registrados los siguientes viajes: \n" + cv.findAll());
+					break;
+				case 4:
+
+					JOptionPane.showMessageDialog(null, "Pulse aceptar para salir del sistema.");
+					// al pulsar en case 4 se pone reptir en false por lo tanto sale del programa y
+					// del bucle
+					repetir = false;
+
+					break;
+
+				}
+				break;
 			}
-			break;
-		}
-		case 1: {
+			case 2: {
+				int ventanaCrear = JOptionPane.showOptionDialog(null, "¿Qué desea crear?", " ",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, botonesEntidades,
+						botonesEntidades[0]);
+				switch (ventanaCrear) {
+				case 0:
+					JOptionPane.showMessageDialog(null,
+							"Vamos a crear un usuario nuevo, actualmente tenemos registrados los siguientes: \n"
+									+ cu.findAll());
 
-			break;
-		}
-		case 2: {
+					ServicioUsuario.InsertarDatosUsuario();
 
-			break;
-		}
-		case 3: {
+					break;
+				case 1:
+					JOptionPane.showMessageDialog(null,
+							"Actualmente tenemos registrados los siguientes pasajeros: \n" + cp.findAll());
+					break;
+				case 2:
+					JOptionPane.showMessageDialog(null,
+							"Actualmente tenemos registrados los siguientes conductores: \n" + cc.findAll());
+					break;
+				case 3:
+					JOptionPane.showMessageDialog(null,
+							"Actualmente tenemos registrados los siguientes viajes: \n" + cv.findAll());
+					break;
+				case 4:
 
-			break;
-		}
+					JOptionPane.showMessageDialog(null, "Pulse aceptar para salir del sistema.");
+					// al pulsar en case 4 se pone reptir en false por lo tanto sale del programa y
+					// del bucle
+					repetir = false;
 
-		}
+					break;
+
+				}
+				break;
+			}
+			case 3: {
+				int ventanaBorrar = JOptionPane.showOptionDialog(null, "¿Qué desea borrar?", " ",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, botonesEntidades,
+						botonesEntidades[0]);
+				switch (ventanaBorrar) {
+				case 0:
+					
+						JOptionPane.showMessageDialog(null,
+								"Actualmente tenemos registrados los siguientes usuarios: \n" + cu.findAll());
+
+					ServicioUsuario.borrarUsuario();
+					break;
+				case 1:
+					JOptionPane.showMessageDialog(null,
+							"Actualmente tenemos registrados los siguientes pasajeros: \n" + cp.findAll());
+					break;
+				case 2:
+					JOptionPane.showMessageDialog(null,
+							"Actualmente tenemos registrados los siguientes conductores: \n" + cc.findAll());
+					break;
+				case 3:
+					JOptionPane.showMessageDialog(null,
+							"Actualmente tenemos registrados los siguientes viajes: \n" + cv.findAll());
+					break;
+				case 4:
+
+					JOptionPane.showMessageDialog(null, "Pulse aceptar para salir del sistema.");
+					// al pulsar en case 4 se pone reptir en false por lo tanto sale del programa y
+					// del bucle
+					repetir = false;
+
+					break;
+
+				}
+				break;
+			}
+			case 4:
+				JOptionPane.showMessageDialog(null, "Pulse aceptar para salir del sistema.");
+				// al pulsar en case 4 se pone reptir en false por lo tanto sale del programa y
+				// del bucle
+				repetir = false;
+				break;
+			}
+		} while (repetir);
 	}
 
 	private static void imprimirConductoresDisponibles(List<Conductor> listaConductores) {
@@ -99,5 +209,6 @@ public class BD_PruebaCompleta {
 
 		}
 	}
+
 
 }

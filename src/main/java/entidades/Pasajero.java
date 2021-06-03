@@ -88,7 +88,7 @@ public class Pasajero implements Serializable {
 	@Override
 	public String toString() {
 		return "Pasajero [codpasajero=" + codpasajero + ", direccionRecogida=" + direccionRecogida + ", usuario="
-				+ usuario + ", viajes=" + viajes + "]";
+				+ usuario.getCodusuario() +"]";
 	}
 
 }

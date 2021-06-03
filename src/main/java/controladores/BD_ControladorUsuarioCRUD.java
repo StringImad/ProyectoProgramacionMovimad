@@ -31,7 +31,22 @@ public class BD_ControladorUsuarioCRUD {
 		// Cierra el entityManager
 		this.em.close();
 	}
+	public void borrarByApellido(String apellido) {
+		this.em = entityManagerFactory.createEntityManager();
+		Usuario aux = null; 
+		this.em.getTransaction().begin();
+		
+		// Se crea el objeto Query a partir de una SQL nativa
+		this.consulta = em.createNativeQuery("Delete * from usuario where apellido = ?", Usuario.class);
+		this.consulta.setParameter(1, apellido);
+		// Se vuelca la información del contexto (caché intermedia) en la base de datos
+		this.em.getTransaction().commit();
 
+		//aux = (Usuario) consulta.getSingleResult();
+		this.em.close();
+	//	return aux;
+
+	}
 	public void modifyUsuario(Usuario user) {
 		this.em = entityManagerFactory.createEntityManager();
 		// En este caso es necesario iniciar una transacción en la base de datos
